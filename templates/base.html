@@ -1,14 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.0.1/dist/tailwind.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <nav>this is nav</nav>
+    <div class="navbar bg-base-100">
+        <div class="navbar-start">
+          <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              <li><a>Item 1</a></li>
+              <li><a>Item 3</a></li>
+            </ul>
+          </div>
+          <a class="btn btn-ghost text-xl" href="{% url 'homepage' %}">Library</a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal px-1">
+            <li><a>Item 1</a></li>
+            <li><a>Item 3</a></li>
+          </ul>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+            <div class="w-10 rounded-full">
+              <img alt="profile image" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+            </div>
+        </div>
+        {% else %}
+        <div class="navbar-end">
+          <a class="btn btn-neutral btn-sm" href="{% url 'register' %}">Register</a>
+          <p class="mx-3">|</p>
+          <a class="btn btn-neutral btn-sm">Login</a>
+        </div>
+        {% endif %}
+      </div>
     {% block content %}
     {% endblock %}
+    <script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
