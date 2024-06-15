@@ -1,4 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>This is hello</h1>
+<div class="grid lg:grid-cols-4 gap-28 mx-12">
+    {% for dt in data %}
+      <div class="card w-96 bg-base-100 shadow-xl">
+        <figure><img src="{{dt.image.url}}" alt="Shoes" /></figure>
+        <div class="card-body">
+          <h2 class="card-title">
+            {{dt.title}}
+          </h2>
+          <p>{{dt.description | truncatewords:10}}</p>
+          <div class="card-actions justify-right">
+            {% for cat in dt.categories.all %}
+            <div class="badge badge-outline">{{cat.name}}</div> 
+            {% endfor %} 
+          </div>
+          <p>Borrowing price: <b>{{dt.borrowing_price}}$</b></p>
+        </div>
+        <div class="px-8 pb-5">
+          <a href="" class="btn btn-neutral btn-sm">Borrow</a>
+        </div>
+      </div>
+    {% endfor %}
+</div>
 {% endblock %}

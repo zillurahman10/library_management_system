@@ -8,39 +8,38 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div class="navbar bg-base-100">
-        <div class="navbar-start">
-          <div class="dropdown">
-            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-            </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a>Item 1</a></li>
-              <li><a>Item 3</a></li>
-            </ul>
-          </div>
-          <a class="btn btn-ghost text-xl" href="{% url 'homepage' %}">Library</a>
-        </div>
-        <div class="navbar-center hidden lg:flex">
-          <ul class="menu menu-horizontal px-1">
-            <li><a>Item 1</a></li>
-            <li><a>Item 3</a></li>
-          </ul>
-        </div>
-        {% if request.user.is_authenticated %}
+  <div class="navbar bg-base-100">
+    <div class="flex-1 items-center">
+      <a href="{% url 'homepage' %}" class="btn btn-ghost text-xl">Library</a>
+      <a href="{% url 'deposit' %}" class="btn btn-ghost btn-sm">Deposit Money</a>
+    </div>
+    <div class="flex-none gap-2">
+      {% if request.user.is_authenticated %}
+      <div class="flex">
+        <h3 class="mx-3">Welcome <b>{{user.username}}</b></h3>
+        <h3>Balance: <b>{{user.account.balance}}$</b></h3>
+        </p>
+      </div>
+      <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 rounded-full">
-              <img alt="profile image" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-            </div>
+          <div class="w-10 rounded-full">
+            <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+          </div>
         </div>
+        <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+          <li><a href="{% url 'homepage' %}">Profile</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
         {% else %}
-        <div class="navbar-end">
-          <a class="btn btn-neutral btn-sm" href="{% url 'register' %}">Register</a>
-          <p class="mx-3">|</p>
-          <a class="btn btn-neutral btn-sm">Login</a>
+        <div class="flex">
+          <a class="btn btn-sm btn-neutral" href="{% url 'register' %}">Register</a>
+          <p class="mx-2">|</p>
+          <a class="btn btn-sm btn-neutral" href="{% url 'login' %}">Login</a>
         </div>
         {% endif %}
       </div>
+    </div>
+  </div>
     {% block content %}
     {% endblock %}
     <script src="https://cdn.tailwindcss.com"></script>
