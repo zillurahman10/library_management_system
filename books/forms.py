@@ -5,3 +5,6 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['description']
+        widget = {
+            'description': forms.Textarea(attrs={'class': 'textarea textarea-bordered'})
+        }

@@ -11,7 +11,9 @@ def book_details(request, id):
 
 def review_page(request, id):
     form  = ReviewForm(request.POST)
-    return render(request, 'review.html', {'form': form, 'id': id})
+    book = Book.objects.get(id=id)
+    data = Review.objects.filter(book=book)
+    return render(request, 'review.html', {'form': form, 'id': id, 'data': data})
 def review(request, id):
     if request.method == 'POST':
         form  = ReviewForm(request.POST)
