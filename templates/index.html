@@ -1,25 +1,44 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="grid lg:grid-cols-4 gap-28 mx-12">
-    {% for dt in data %}
-      <div class="card w-96 bg-base-100 shadow-xl">
-        <figure><img src="{{dt.image.url}}" alt="Shoes" /></figure>
-        <div class="card-body">
-          <h2 class="card-title">
-            {{dt.title}}
-          </h2>
-          <p>{{dt.description | truncatewords:10}}</p>
-          <div class="card-actions justify-right">
-            {% for cat in dt.categories.all %}
-            <div class="badge badge-outline">{{cat.name}}</div> 
-            {% endfor %} 
+<div class="flex">
+  <div class="drawer lg:drawer-open" style="width: 400px;">
+    <input id="my-drawer-2" type="checkbox" class="drawer-toggle" /> 
+    <div class="drawer-side w-25">
+      <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label> 
+      <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+        <div class="flex items-center justify-center">
+          <h1 class="font-bold">Filter books by category</h1>
+          <li><a class="ml-2" href="{% url 'homepage' %}"><b class="text-red-500">Clear filter</b></a></li>
+        </div>
+        {% for cat in categories %}
+        <li><a href="{% url 'category_wise_book' cat.slug %}">{{cat.name}}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="m-5">
+    <div class="grid grid-cols-2 gap-y-10 gap-x-28 mt-5">
+        {% for dt in data %}
+          <div class="card w-96 bg-base-100 shadow-xl">
+            <figure><img src="{{dt.image.url}}" /></figure>
+            <div class="card-body">
+              <h2 class="card-title">
+                {{dt.title}}
+              </h2>
+              <p>{{dt.description | truncatewords:10}}</p>
+              <div class="card-actions justify-right">
+                {% for cat in dt.categories.all %}
+                <div class="badge badge-outline">{{cat.name}}</div> 
+                {% endfor %} 
+              </div>
+              <p>Borrowing price: <b>{{dt.borrowing_price}}$</b></p>
+            </div>
+            <div class="px-8 pb-5">
+              <a href="{% url 'details' dt.id %}" class="btn btn-neutral btn-sm">Details</a>
+            </div>
           </div>
-          <p>Borrowing price: <b>{{dt.borrowing_price}}$</b></p>
-        </div>
-        <div class="px-8 pb-5">
-          <a href="" class="btn btn-neutral btn-sm">Borrow</a>
-        </div>
-      </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+  </div>
 </div>
 {% endblock %}

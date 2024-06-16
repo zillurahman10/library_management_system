@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="{% url 'post_review' id %}" class="mx-auto" style="width: 400px;">
+    {% csrf_token %}
+    <h1 class='text-xl'>Please provide your review </h1>
+    {{form.description}}
+    <button class="btn btn-neutral" type="submit">Submit</button>
+</form>
+hello
+{% endblock %}

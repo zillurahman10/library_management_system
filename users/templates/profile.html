@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mx-auto" style="width: 500px;">
+  <div class="card card-side bg-base-100 shadow-xl" >
+    <figure><img src="{{user.account.profile_image}}" alt=""/></figure>
+    <div class="card-body">
+      <h2 class="card-title">{{user.account.first_name}} {{user.account.last_name}}</h2>
+      <p>Username: {{user.username}}</p>
+      <p>Email: {{user.email}}</p>
+      <p>Address: {{user.account.shipping_address}}</p>
+      <p>Current Balance: {{user.account.balance}} $</p>
+    </div>
+  </div>
+</div>
+<h1 class="text-center text-xl font-bold m-5">Here is your borrowed books list</h1>
+<div style="width: 800px;" class="mx-auto">
+    <div class="overflow-x-auto">
+        <table class="table">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Book</th>
+              <th>Price</th>
+              <th>Balance after borrowing book</th>
+              <th>Borrowing date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for dt in data %}
+            <tr class="hover">
+              <th>{{dt.id}}</th>
+              <td>{{dt.book.title}}</td>
+              <td>{{dt.book.borrowing_price}}</td>
+              <td>{{dt.borrower.balance}} $</td>
+              <td>{{dt.borrow_date}}</td>
+              <td>
+                  <a href="{% url 'review' dt.book.id %}" type="submit" class="btn btn-neutral btn-outline btn-xs mb-1">Give Review</a>
+                <form action="{% url 'return_book' dt.book.id %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-xs btn-outline btn-neutral">Return book</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+</div>
+{% endblock %}

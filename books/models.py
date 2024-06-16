@@ -39,7 +39,7 @@ class Category(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.FileField(upload_to = 'books/uploads')
+    image = models.ImageField(upload_to = 'books/uploads', blank=True, null=True)
     borrowing_price = models.IntegerField()
     categories = models.ManyToManyField(Category)
 
@@ -54,4 +54,6 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Commented by {self.user.username} on {self.book.title}"
+    
+
     
