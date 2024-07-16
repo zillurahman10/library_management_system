@@ -21,6 +21,6 @@ def review(request, id):
             review = form.cleaned_data['description']
             user = request.user
             book = Book.objects.get(id=id)
-            Review.objects.create(user=user,book=book, description=review)
+            Review.objects.create(user=user, book=book, description=review)
             messages.success(request, 'Review Posted Successfully')
     return redirect('review', id)

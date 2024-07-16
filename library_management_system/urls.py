@@ -10,3 +10,4 @@ urlpatterns = [
     path('category/<slug:category_slug>/', home, name="category_wise_book"),
     path('borrow/', include('borrow.urls')),
 ]
+
